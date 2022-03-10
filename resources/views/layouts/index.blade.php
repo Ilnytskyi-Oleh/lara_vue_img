@@ -10,7 +10,7 @@
     <title>LaraVueImg</title>
 </head>
 <body>
-    <div id="app">
+    <div id="app" class="p-5">
         @yield('content')
     </div>
 </body>
