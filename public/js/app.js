@@ -5271,18 +5271,39 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
   name: "Index",
   data: function data() {
     return {
-      dropzone: null
+      dropzone: null,
+      title: ''
     };
   },
   mounted: function mounted() {
     this.dropzone = new dropzone__WEBPACK_IMPORTED_MODULE_0__["default"](this.$refs.dropzone, {
-      url: 'test'
+      url: '/api/posts',
+      autoProcessQueue: false,
+      addRemoveLinks: true
     });
+  },
+  methods: {
+    store: function store() {
+      var _this = this;
+
+      var data = new FormData();
+      var files = this.dropzone.getAcceptedFiles();
+      files.forEach(function (file) {
+        data.append('images[]', file);
+
+        _this.dropzone.removeFile(file);
+      });
+      data.append('title', this.title);
+      this.title = '';
+      axios.post('/api/posts', data).then(function (res) {});
+    }
   }
 });
 
@@ -27972,11 +27993,44 @@ var render = function () {
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
   return _c("div", { staticClass: "w-25" }, [
+    _c("input", {
+      directives: [
+        {
+          name: "model",
+          rawName: "v-model",
+          value: _vm.title,
+          expression: "title",
+        },
+      ],
+      staticClass: "mb-3",
+      attrs: { type: "text", placeholder: "Title" },
+      domProps: { value: _vm.title },
+      on: {
+        input: function ($event) {
+          if ($event.target.composing) {
+            return
+          }
+          _vm.title = $event.target.value
+        },
+      },
+    }),
+    _vm._v(" "),
     _c(
       "div",
       { ref: "dropzone", staticClass: "p-5 text-light text-center bg-dark" },
       [_vm._v("\n        Upload\n    ")]
     ),
+    _vm._v(" "),
+    _c("input", {
+      staticClass: "btn btn-primary mt-3",
+      attrs: { type: "submit", value: "Add" },
+      on: {
+        click: function ($event) {
+          $event.preventDefault()
+          return _vm.store.apply(null, arguments)
+        },
+      },
+    }),
   ])
 }
 var staticRenderFns = []
