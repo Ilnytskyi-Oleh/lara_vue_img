@@ -5288,6 +5288,9 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
 
 
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = ({
@@ -5323,6 +5326,7 @@ __webpack_require__.r(__webpack_exports__);
         _this.dropzone.removeFile(file);
       });
       data.append('title', this.title);
+      data.append('content', this.content);
       this.title = '';
       axios.post('/api/posts', data).then(function (res) {
         _this.getPost();
@@ -41745,6 +41749,11 @@ var render = function () {
                   _vm._v(" "),
                   _c("img", { attrs: { src: image.url } }),
                 ])
+              }),
+              _vm._v(" "),
+              _c("div", {
+                staticClass: "ql-editor",
+                domProps: { innerHTML: _vm._s(_vm.post.content) },
               }),
             ],
             2

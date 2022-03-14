@@ -17,6 +17,9 @@
                     <img :src="image.preview_url">
                     <img :src="image.url">
                 </div>
+
+                <div class="ql-editor" v-html="post.content"></div>
+
             </div>
         </div>
     </div>
@@ -57,6 +60,8 @@ export default {
                 this.dropzone.removeFile(file)
             })
             data.append('title', this.title)
+            data.append('content', this.content)
+
             this.title = ''
             axios.post('/api/posts', data)
                 .then(res => {
